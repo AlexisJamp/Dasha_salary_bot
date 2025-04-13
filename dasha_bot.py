@@ -4,8 +4,11 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 from datetime import datetime
 from collections import defaultdict
 import json
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
+TOKEN = os.getenv("TELEGRAM_TOKEN")
 DATA_FILE = "data.json"
 
 def load_data():
@@ -91,11 +94,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Пожалуйста введите число.")
         context.user_data["expecting_input"] = False
 
-app = ApplicationBuilder().token("7428704539:AAGV0XuggbY9Lq42-RO5pIJbVFTSuMRcQg8").build()
+app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(handle_button))
 app.add_handler((MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message)))
 
-if __name__ == '__main__':
-    app.run_polling()
+app.run_polling()
