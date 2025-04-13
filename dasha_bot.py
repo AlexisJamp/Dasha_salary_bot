@@ -9,7 +9,6 @@ import os
 
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
-print("Token", TOKEN)
 DATA_FILE = "data.json"
 
 def load_data():
