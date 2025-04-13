@@ -8,7 +8,8 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-TOKEN = os.getenv("TELEGRAM_TOKEN")
+TOKEN = os.getenv("BOT_TOKEN")
+print("Token", TOKEN)
 DATA_FILE = "data.json"
 
 def load_data():
@@ -94,7 +95,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text("Пожалуйста введите число.")
         context.user_data["expecting_input"] = False
 
-app = ApplicationBuilder().token(TOKEN).build()
+app = Application.builder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CallbackQueryHandler(handle_button))
